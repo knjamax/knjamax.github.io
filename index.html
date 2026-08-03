@@ -1724,7 +1724,7 @@
             <div class="footer-content">
                 <p class="footer-brand">K.NJAMASI IT SMART TECH</p>
                 <p class="footer-text">"Your Trusted IT Partner" &mdash; Singida, Tanzania</p>
-                <p class="footer-text">&copy; 2026 K.NJAMASI IT SMART TECH. All rights reserved.</p>
+                <p class="footer-text">&copy; <span id="year"></span> K.NJAMASI IT SMART TECH. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -2245,6 +2245,11 @@
 
         })();
     </script>
+	<script>
+		// Automatically insert the current year into the HTML span element
+		document.getElementById("year").textContent = new Date().getFullYear();
+	</script>
+
 
 </body>
 </html>
