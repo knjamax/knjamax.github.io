@@ -1241,6 +1241,182 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* ===== HERO ENTRANCE ANIMATIONS ===== */
+        .hero-logo {
+            animation: logoEntrance 1s ease-out, logoPulse 3s ease-in-out 1s infinite;
+        }
+        @keyframes logoEntrance {
+            0% { opacity: 0; transform: scale(0.3) rotate(-180deg); }
+            60% { opacity: 1; transform: scale(1.1) rotate(10deg); }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
+        .hero-title {
+            animation: slideDown 0.8s ease-out 0.3s both;
+        }
+        @keyframes slideDown {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-slogan {
+            animation: slideDown 0.8s ease-out 0.5s both;
+        }
+
+        .hero-location {
+            animation: slideDown 0.8s ease-out 0.7s both;
+        }
+
+        .hero-buttons {
+            animation: slideDown 0.8s ease-out 0.9s both;
+        }
+
+        /* ===== STAGGERED CARD ANIMATIONS ===== */
+        .services-grid .service-card:nth-child(1) { transition-delay: 0s; }
+        .services-grid .service-card:nth-child(2) { transition-delay: 0.1s; }
+        .services-grid .service-card:nth-child(3) { transition-delay: 0.2s; }
+        .services-grid .service-card:nth-child(4) { transition-delay: 0.3s; }
+        .services-grid .service-card:nth-child(5) { transition-delay: 0.4s; }
+        .services-grid .service-card:nth-child(6) { transition-delay: 0.5s; }
+        .services-grid .service-card:nth-child(7) { transition-delay: 0.6s; }
+        .services-grid .service-card:nth-child(8) { transition-delay: 0.7s; }
+
+        .why-grid .why-card:nth-child(1) { transition-delay: 0s; }
+        .why-grid .why-card:nth-child(2) { transition-delay: 0.15s; }
+        .why-grid .why-card:nth-child(3) { transition-delay: 0.3s; }
+        .why-grid .why-card:nth-child(4) { transition-delay: 0.45s; }
+        .why-grid .why-card:nth-child(5) { transition-delay: 0.6s; }
+
+        /* ===== SECTION HEADER SLIDE ANIMATION ===== */
+        .section-header .section-title {
+            transition: all 0.7s ease;
+        }
+        .section-header .section-subtitle {
+            transition: all 0.7s ease 0.2s;
+        }
+        .section-header .section-divider {
+            transition: all 0.7s ease 0.3s;
+            transform: scaleX(0);
+            transform-origin: center;
+        }
+        .section-header.visible .section-divider {
+            transform: scaleX(1);
+        }
+
+        /* ===== CONTACT ITEM SLIDE-IN ===== */
+        .contact-info .contact-item:nth-child(1) { transition-delay: 0s; }
+        .contact-info .contact-item:nth-child(2) { transition-delay: 0.1s; }
+        .contact-info .contact-item:nth-child(3) { transition-delay: 0.2s; }
+        .contact-info .contact-item:nth-child(4) { transition-delay: 0.3s; }
+        .contact-info .contact-item:nth-child(5) { transition-delay: 0.4s; }
+        .contact-info .contact-item:nth-child(6) { transition-delay: 0.5s; }
+
+        .contact-card {
+            transition: all 0.7s ease 0.3s;
+        }
+
+        /* ===== SOCIAL LINKS BOUNCE ===== */
+        .social-link {
+            transition: all 0.3s ease;
+        }
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.15);
+        }
+
+        /* ===== FLOATING WHATSAPP BOUNCE ===== */
+        @keyframes floatBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .floating-whatsapp {
+            animation: floatBounce 3s ease-in-out infinite;
+        }
+
+        /* ===== NAVBAR LINKS HOVER GLOW ===== */
+        .nav-links a {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-main);
+            transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-links a:hover {
+            color: var(--cyan);
+            text-shadow: 0 0 20px rgba(0, 200, 212, 0.5);
+        }
+
+        /* ===== SERVICE ICON ANIMATION ON SCROLL ===== */
+        .service-card.visible .service-icon {
+            animation: iconPop 0.5s ease 0.2s both;
+        }
+        @keyframes iconPop {
+            0% { transform: scale(0.5) rotate(-20deg); opacity: 0; }
+            70% { transform: scale(1.15) rotate(5deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .why-card.visible .why-icon {
+            animation: iconPop 0.5s ease 0.3s both;
+        }
+
+        /* ===== SCROLL-TO-TOP ANIMATION ===== */
+        .scroll-top {
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        .scroll-top:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* ===== PARALLAX-LIKE HERO FLOATING PARTICLES ===== */
+        .hero-content {
+            animation: heroContentFloat 6s ease-in-out infinite;
+        }
+        @keyframes heroContentFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* ===== BLOG CARD ANIMATION ===== */
+        .blog-card {
+            transition: all 0.5s ease;
+        }
+        .blog-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+        .blog-icon {
+            transition: all 0.4s ease;
+        }
+        .blog-card:hover .blog-icon {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        /* ===== MAP SECTION ANIMATION ===== */
+        .map-embed {
+            transition: all 0.6s ease;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 200, 212, 0.1);
+        }
+        .map-embed:hover {
+            box-shadow: 0 15px 50px rgba(0, 200, 212, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* ===== FOOTER FADE IN ===== */
+        .footer {
+            transition: all 0.6s ease;
+        }
     </style>
 </head>
 <body>
@@ -1417,7 +1593,7 @@
             </div>
             <div class="contact-wrapper fade-in">
                 <div class="contact-info">
-                    <a href="https://wa.me/255754229027" target="_blank" class="contact-item">
+                    <a href="https://wa.me/255754229027" target="_blank" class="contact-item fade-in">
                         <div class="contact-icon whatsapp">
                             <i class="fab fa-whatsapp"></i>
                         </div>
@@ -1426,7 +1602,7 @@
                             <span>0754 229 027</span>
                         </div>
                     </a>
-                    <a href="mailto:kelvinnjamas6@gmail.com" class="contact-item">
+                    <a href="mailto:kelvinnjamas6@gmail.com" class="contact-item fade-in">
                         <div class="contact-icon email">
                             <i class="fas fa-envelope"></i>
                         </div>
@@ -1435,7 +1611,7 @@
                             <span>kelvinnjamas6@gmail.com</span>
                         </div>
                     </a>
-                    <a href="https://www.instagram.com/k.njamasi" target="_blank" class="contact-item">
+                    <a href="https://www.instagram.com/k.njamasi" target="_blank" class="contact-item fade-in">
                         <div class="contact-icon social">
                             <i class="fab fa-instagram"></i>
                         </div>
@@ -1444,7 +1620,7 @@
                             <span>@k.njamasi</span>
                         </div>
                     </a>
-                    <a href="https://www.tiktok.com/@k.njamasi" target="_blank" class="contact-item">
+                    <a href="https://www.tiktok.com/@k.njamasi" target="_blank" class="contact-item fade-in">
                         <div class="contact-icon social">
                             <i class="fab fa-tiktok"></i>
                         </div>
@@ -1453,7 +1629,7 @@
                             <span>@k.njamasi</span>
                         </div>
                     </a>
-                    <a href="https://www.facebook.com/kelvinnjamax" target="_blank" class="contact-item">
+                    <a href="https://www.facebook.com/kelvinnjamax" target="_blank" class="contact-item fade-in">
                         <div class="contact-icon social">
                             <i class="fab fa-facebook-f"></i>
                         </div>
@@ -1462,7 +1638,7 @@
                             <span>Kelvin Njamas</span>
                         </div>
                     </a>
-                    <a href="https://www.youtube.com/@kelvinnjamas" target="_blank" class="contact-item">
+                    <a href="https://www.youtube.com/@kelvinnjamas" target="_blank" class="contact-item fade-in">
                         <div class="contact-icon social">
                             <i class="fab fa-youtube"></i>
                         </div>
@@ -1472,7 +1648,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="contact-card">
+                <div class="contact-card fade-in">
                     <h3>K.NJAMASI IT SMART TECH</h3>
                     <p>Owner: Kelvin Njamas<br>Singida, Tanzania</p>
                     <a href="https://wa.me/255754229027" target="_blank" class="btn btn-whatsapp" style="margin-top: 10px;">
@@ -1647,6 +1823,59 @@
         });
 
         fadeElements.forEach(el => fadeObserver.observe(el));
+
+        // ===== STAGGERED CARD ANIMATIONS ON SCROLL =====
+        const staggerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -30px 0px'
+        });
+
+        document.querySelectorAll('.service-card, .why-card, .contact-item, .contact-card').forEach(el => {
+            staggerObserver.observe(el);
+        });
+
+        // ===== NAVBAR LINK ACTIVE STATE ON SCROLL =====
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href') === '#' + current) {
+                    link.style.color = 'var(--cyan)';
+                }
+            });
+        });
+
+        // ===== BUTTON RIPPLE EFFECT =====
+        document.querySelectorAll('.btn, .btn-whatsapp, .btn-blog, .btn-map').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.cssText = 'position:absolute;width:' + size + 'px;height:' + size + 'px;left:' + (e.clientX - rect.left - size / 2) + 'px;top:' + (e.clientY - rect.top - size / 2) + 'px;background:rgba(255,255,255,0.4);border-radius:50%;transform:scale(0);animation:ripple 0.6s ease-out;pointer-events:none;';
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Ripple keyframes (injected dynamically)
+        const rippleStyle = document.createElement('style');
+        rippleStyle.textContent = '@keyframes ripple { to { transform: scale(4); opacity: 0; } }';
+        document.head.appendChild(rippleStyle);
 
         // ===== CHATBOT LOGIC =====
         (function() {
