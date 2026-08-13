@@ -32,8 +32,319 @@
     @media(max-width:700px){.topbar .container{justify-content:center}.topbar span:last-child{display:none}.nav-toggle{display:block}.nav-links{position:absolute;display:none;top:76px;left:20px;right:20px;padding:22px;background:#fff;border-radius:14px;box-shadow:var(--shadow);flex-direction:column;align-items:stretch;gap:0}.nav-links.open{display:flex}.nav-links li{border-bottom:1px solid var(--line)}.nav-links li:last-child{border-bottom:0}.nav-links a{display:block;padding:13px 5px}.nav-cta{display:block;text-align:center;margin-top:8px}.hero{padding:75px 0 82px}.hero-card{min-height:270px}.hero-logo{width:160px;height:160px}.hero h1{font-size:2.55rem}.section{padding:70px 0}.trust-grid,.stats-grid{grid-template-columns:1fr 1fr}.service-grid,.why-grid,.quotes,.contact-list{grid-template-columns:1fr}.blog-card,.map-card{display:block;padding:28px;margin-top:10px}.blog-card .btn,.map-card .btn{margin-top:22px}.footer-grid{grid-template-columns:1fr;gap:28px}.float-wa{left:18px;bottom:18px}.top-btn{right:18px;bottom:18px}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
   </style>
+<style>
+
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ===== FLOATING BUTTON ===== */
+  .chat-toggle-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #0077B6, #00B4D8, #2EC4B6);
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,119,182,0.45);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .chat-toggle-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 28px rgba(0,119,182,0.55);
+  }
+  .chat-toggle-btn .icon-chat { display: block; }
+  .chat-toggle-btn .icon-close { display: none; }
+  .chat-toggle-btn.active .icon-chat { display: none; }
+  .chat-toggle-btn.active .icon-close { display: block; }
+
+  /* Pulse animation */
+  .chat-toggle-btn::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(0,119,182,0.3);
+    animation: pulse-ring 2s infinite;
+    z-index: -1;
+  }
+  @keyframes pulse-ring {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+  .chat-toggle-btn.active::after { animation: none; }
+
+  /* ===== CHAT WINDOW ===== */
+  .chat-window {
+    position: fixed;
+    bottom: 96px;
+    right: 24px;
+    width: 380px;
+    max-width: calc(100vw - 48px);
+    height: 540px;
+    max-height: calc(100vh - 140px);
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 99998;
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .chat-window.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+  }
+
+  /* ===== HEADER ===== */
+  .chat-header {
+    background: linear-gradient(135deg, #0077B6, #00B4D8);
+    color: #fff;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .chat-header-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: #0077B6;
+    font-size: 14px;
+    flex-shrink: 0;
+    letter-spacing: -0.5px;
+  }
+  .chat-header-info h3 {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .chat-header-info p {
+    font-size: 11px;
+    opacity: 0.85;
+    margin-top: 2px;
+  }
+  .chat-header-lang {
+    margin-left: auto;
+    display: flex;
+    gap: 4px;
+  }
+  .lang-btn {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .lang-btn:hover, .lang-btn.active {
+    background: rgba(255,255,255,0.35);
+  }
+
+  /* ===== MESSAGES AREA ===== */
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #f4f7fa;
+    scroll-behavior: smooth;
+  }
+  .chat-messages::-webkit-scrollbar { width: 5px; }
+  .chat-messages::-webkit-scrollbar-track { background: transparent; }
+  .chat-messages::-webkit-scrollbar-thumb { background: #c0d6e4; border-radius: 10px; }
+
+  /* ===== BUBBLES ===== */
+  .bubble {
+    max-width: 82%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.5;
+    animation: fadeInUp 0.3s ease;
+    word-wrap: break-word;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .bubble.bot {
+    align-self: flex-start;
+    background: #fff;
+    color: #1a2a3a;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .bubble.user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #0077B6, #00B4D8);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+
+  /* ===== TYPING INDICATOR ===== */
+  .typing-indicator {
+    align-self: flex-start;
+    display: flex;
+    gap: 4px;
+    padding: 14px 18px;
+    background: #fff;
+    border-radius: 18px;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background: #93b5cf;
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out;
+  }
+  .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+  }
+
+  /* ===== QUICK REPLIES ===== */
+  .quick-replies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 16px 12px;
+    background: #f4f7fa;
+    flex-shrink: 0;
+  }
+  .quick-reply-btn {
+    background: #fff;
+    border: 1.5px solid #00B4D8;
+    color: #0077B6;
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .quick-reply-btn:hover {
+    background: #0077B6;
+    color: #fff;
+  }
+
+  /* ===== INPUT AREA ===== */
+  .chat-input-area {
+    display: flex;
+    align-items: center;
+    padding: 12px 14px;
+    background: #fff;
+    border-top: 1px solid #e8edf2;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .chat-input {
+    flex: 1;
+    border: 1.5px solid #d5dfe8;
+    border-radius: 24px;
+    padding: 10px 16px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: inherit;
+  }
+  .chat-input:focus {
+    border-color: #00B4D8;
+  }
+  .chat-input::placeholder { color: #94a3b8; }
+  .send-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #0077B6, #00B4D8);
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .send-btn:hover { transform: scale(1.08); }
+
+  /* ===== FOOTER ===== */
+  .chat-footer {
+    text-align: center;
+    padding: 6px;
+    font-size: 10px;
+    color: #8fa3b8;
+    background: #fff;
+    border-top: 1px solid #e8edf2;
+    flex-shrink: 0;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 480px) {
+    .chat-window {
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      max-width: 100%;
+      height: 100%;
+      max-height: 100%;
+      border-radius: 0;
+    }
+    .chat-toggle-btn {
+      bottom: 20px;
+      right: 20px;
+    }
+    .chat-window.open + .chat-toggle-btn {
+      bottom: 0;
+      right: 0;
+    }
+  }
+
+
+/* ===== LIVE WALLPAPER ===== */
+.live-wallpaper{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:linear-gradient(135deg,rgba(7,26,50,.025),rgba(16,190,208,.035))}
+.live-wallpaper:before,.live-wallpaper:after{content:"";position:absolute;border-radius:50%;filter:blur(45px);opacity:.22;will-change:transform}
+.live-wallpaper:before{width:42vw;height:42vw;left:-12vw;top:20vh;background:radial-gradient(circle,#10bed0,transparent 68%);animation:wallpaperFloatA 18s ease-in-out infinite alternate}
+.live-wallpaper:after{width:38vw;height:38vw;right:-10vw;top:55vh;background:radial-gradient(circle,#19d58b,transparent 68%);animation:wallpaperFloatB 23s ease-in-out infinite alternate}
+@keyframes wallpaperFloatA{0%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(12vw,-8vh,0) scale(1.2)}100%{transform:translate3d(4vw,14vh,0) scale(.92)}}
+@keyframes wallpaperFloatB{0%{transform:translate3d(0,0,0) scale(.9)}50%{transform:translate3d(-11vw,-10vh,0) scale(1.18)}100%{transform:translate3d(-3vw,7vh,0) scale(1)}}
+@media(prefers-reduced-motion:reduce){.live-wallpaper:before,.live-wallpaper:after{animation:none}}
+
+</style>
 </head>
 <body>
+  <div class="live-wallpaper" aria-hidden="true"></div>
   <div class="topbar"><div class="container"><span><i class="fas fa-location-dot"></i> Singida, Tanzania</span><span><i class="fas fa-clock"></i> Huduma za kuaminika, kila wakati</span></div></div>
   <header class="navbar" id="navbar"><div class="container nav-inner"><a class="brand" href="#hero"><img src="logo.jpg" alt="K.NJAMASI logo">K.NJAMASI</a><button class="nav-toggle" id="navToggle" aria-label="Fungua menu" aria-expanded="false"><i class="fas fa-bars"></i></button><ul class="nav-links" id="navLinks"><li><a href="#services">Huduma</a></li><li><a href="#about">Kuhusu Sisi</a></li><li><a href="#why-us">Kwa Nini Sisi</a></li><li><a href="#testimonials">Wateja</a></li><li><a href="#contact">Mawasiliano</a></li><li><a class="nav-cta" href="https://wa.me/255754229027" target="_blank" rel="noopener">Wasiliana Nasi <i class="fab fa-whatsapp"></i></a></li></ul></div></header>
   <main>
@@ -59,5 +370,487 @@
     document.getElementById('year').textContent=new Date().getFullYear();
     const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
   </script>
+
+<!-- ===== CHATBOT WIDGET ===== -->
+<div id="chatbot-widget">
+
+  <!-- Floating Toggle Button -->
+  <button class="chat-toggle-btn" id="chatToggleBtn" aria-label="Open chat">
+    <svg class="icon-chat" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    <svg class="icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  </button>
+
+  <!-- Chat Window -->
+  <div class="chat-window" id="chatWindow">
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="chat-header-avatar">KN</div>
+      <div class="chat-header-info">
+        <h3>K.Njamasi IT Smart Tech</h3>
+        <p id="headerStatus">Online</p>
+      </div>
+      <div class="chat-header-lang">
+        <button class="lang-btn active" data-lang="sw" id="langSw">SW</button>
+        <button class="lang-btn" data-lang="en" id="langEn">EN</button>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="chat-messages" id="chatMessages"></div>
+
+    <!-- Quick Replies -->
+    <div class="quick-replies" id="quickReplies"></div>
+
+    <!-- Input -->
+    <div class="chat-input-area">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
+      <button class="send-btn" id="sendBtn" aria-label="Send">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <div class="chat-footer">
+      &copy; K.Njamasi IT Smart Tech. All rights reserved.
+    </div>
+  </div>
+</div>
+<script>
+(function() {
+  'use strict';
+
+  // ===== STATE =====
+  let currentLang = 'sw';
+  let chatOpen = false;
+
+  // ===== DOM ELEMENTS =====
+  const toggleBtn = document.getElementById('chatToggleBtn');
+  const chatWindow = document.getElementById('chatWindow');
+  const messagesEl = document.getElementById('chatMessages');
+  const quickRepliesEl = document.getElementById('quickReplies');
+  const chatInput = document.getElementById('chatInput');
+  const sendBtn = document.getElementById('sendBtn');
+  const langSwBtn = document.getElementById('langSw');
+  const langEnBtn = document.getElementById('langEn');
+  const headerStatus = document.getElementById('headerStatus');
+
+  // ===== BUSINESS DATA =====
+  const business = {
+    name: 'K.NJAMASI IT SMART TECH',
+    slogan: 'Your Trusted IT Partner',
+    location: 'Singida, Tanzania',
+    whatsapp: '0754229027',
+    email: 'kelvinnjamas6@gmail.com',
+    instagram: '@k.njamasi',
+    tiktok: '@k.njamasi',
+    hours: 'Monday - Saturday, 8:00 AM - 6:00 PM',
+    services: [
+      'Computer & Phone Repair',
+      'Software Installation (Windows)',
+      'Antivirus & Updates',
+      'MS Office & Technology Training',
+      'Networking Solutions',
+      'Graphic Design (banners, flyers, logos, cards)',
+      'Online Applications (NIDA, TIN, TCU, NACTE, Passport, NAPA, HESLB, Birth/Death Certificates, Business Licenses, Business Name Registration)',
+      'Job Applications',
+      'IT Consultation'
+    ]
+  };
+
+  // ===== LANGUAGE RESPONSES =====
+  const responses = {
+    sw: {
+      greeting: 'Habari! 👋 Karibu kwenye chat ya K.NJAMASI IT SMART TECH — "Your Trusted IT Partner". Naweza kukusaidia na taarifa kuhusu huduma zetu, mahali tunapoishi, au jinsi ya kuwasiliana nasi. Nini naweza kukusaidia nawo?',
+      status: 'Mtandaoni',
+      placeholder: 'Andika ujumbe wako...',
+      quickReplies: [
+        { label: '🛠️ Huduma', value: 'services' },
+        { label: '📞 Mawasiliano', value: 'contact' },
+        { label: '📍 Mahali', value: 'location' },
+        { label: '🕐 Masaa', value: 'hours' },
+        { label: '💰 Bei', value: 'pricing' },
+        { label: '🌐 Programu za Mtandaoni', value: 'online_apps' }
+      ],
+      serviceList: 'Tunatoa huduma nyingi za IT:\n\n' +
+        '🔧 Kuweka / Kutengeneza Kompyuta & Simu\n' +
+        '💿 Kuweka Programu (Windows)\n' +
+        '🛡️ Antivirus & Updates\n' +
+        '📚 Mafunzo ya MS Office & Teknolojia\n' +
+        '🌐 Suluhisho za Mtandao (Networking)\n' +
+        '🎨 Ubunifu wa Maandishi (Banners, Flyers, Logos, Cards)\n' +
+        '📝 Programu za Mtandaoni (NIDA, TIN, TCU, NACTE, Passport, NAPA, HESLB, Hati za Kuzaliwa/Kufariki, Leseni za Biashara, Usajili wa Jina la Biashara)\n' +
+        '💼 Maombi ya Kazi\n' +
+        '💡 Ushauri wa IT\n\n' +
+        'Je, ungependa kujua zaidi kuhusu huduma yoyote?',
+      contact: 'Unaweza kuwasiliana nasi kupitia:\n\n' +
+        '📱 WhatsApp: 0754229027\n' +
+        '📧 Email: kelvinnjamas6@gmail.com\n' +
+        '📸 Instagram: @k.njamasi\n' +
+        '🎵 TikTok: @k.njamasi\n\n' +
+        'Tunapendekeza WhatsApp kwa majibu ya haraka!',
+      location: 'Tunapatikana mjini Singida, Tanzania. 📍\n\n' +
+        'Tunakaribisha wateja wetu kutembelea ofisi yetu kwa huduma za moja kwa moja!',
+      hours: 'Masaa ya Kazi:\n\n' +
+        '📅 Jumatatu hadi Jumamosi\n' +
+        '🕗 8:00 Asubuhi hadi 6:00 Jioni\n\n' +
+        'Tunakukaribisha wakati wowote ndani ya masaa haya!',
+      pricing: 'Bei zetu ni rafiki sana! 💰\n\n' +
+        'Tunatoa huduma za ubora wa hali ya juu kwa bei nafuu. Kila mteja hupata bei inayofaa kulingana na huduma anayoomba.\n\n' +
+        'Kwa maelezo zaidi kuhusu bei, tafadhali wasiliana nasi kupitia WhatsApp: 0754229027',
+      onlineApps: 'Tunakusaidia kuomba mtandaoni huduma mbalimbali:\n\n' +
+        '🪪 NIDA\n' +
+        '📋 TIN\n' +
+        '🎓 TCU & NACTE\n' +
+        '🛂 Passport\n' +
+        '📡 NAPA\n' +
+        '💰 HESLB\n' +
+        '📜 Hati za Kuzaliwa / Kufariki\n' +
+        '🏢 Leseni za Biashara\n' +
+        '📝 Usajili wa Jina la Biashara\n\n' +
+        'Tujulishe ni gani unayo hitaji!',
+      jobs: 'Tunakusaidia kutengeneza maombi ya kazi kitaalamu. 💼\n\n' +
+        'Wasiliana nasi kupitia WhatsApp: 0754229027 kwa maelezo zaidi.',
+      repair: 'Tunafanya matengenezo ya kompyuta na simu za mkononi. 🔧\n\n' +
+        'Ikiwa una tatizo na kifaa chako, tupelekee au tuwasiliane kupitia WhatsApp: 0754229027 kwa tathmini ya bure!',
+      training: 'Tunatoa mafunzo ya teknolojia na programu:\n\n' +
+        '📊 MS Office (Word, Excel, PowerPoint)\n' +
+        '💻 Ujuzi wa Kompyuta kwa Wanaoanza\n' +
+        '🖥️ Matengenezo ya Kompyuta\n\n' +
+        'Wasiliana nasi kwa ratiba na bei: 0754229027',
+      graphic: 'Tunafanya kazi za kubuni (Graphic Design):\n\n' +
+        '🎨 Banners & Flyers\n' +
+        '🖼️ Logos\n' +
+        '💳 Business Cards\n\n' +
+        'Tunafanya kazi kwa ubora wa hali ya juu! Wasiliana nasi: 0754229027',
+      networking: 'Tunatoa suluhisho za mtandao kwa biashara na nyumba. 🌐\n\n' +
+        'Tengeneza mtandao, routers, na LAN. Wasiliana nasi: 0754229027',
+      fallback: 'Samahani, sijaielewa swali lako vizuri. 😊\n\n' +
+        'Kwa msaada zaidi, tafadhali wasiliana nasi kupitia:\n' +
+        '📱 WhatsApp: 0754229027\n' +
+        '📧 Email: kelvinnjamas6@gmail.com\n\n' +
+        'Tutakukaribisha!',
+      thanks: 'Asante kwa kuwasiliana nasi! 😊 Tunafurahi kukusaidia. Kwa swali zaidi, tunapatikana WhatsApp: 0754229027.',
+      hello: 'Habari! 👋 Karibu kwenye chat ya K.NJAMASI IT SMART TECH. Nini naweza kukusaidia nawo?',
+      servicesTitle: 'Huduma Zetu',
+      contactTitle: 'Mawasiliano',
+      locationTitle: 'Mahali',
+      hoursTitle: 'Masaa ya Kazi',
+      pricingTitle: 'Bei',
+      onlineAppsTitle: 'Programu za Mtandaoni',
+      jobsTitle: 'Maombi ya Kazi',
+      repairTitle: 'Matengenezo',
+      trainingTitle: 'Mafunzo',
+      graphicTitle: 'Ubunifu',
+      networkingTitle: 'Mtandao',
+    },
+    en: {
+      greeting: 'Hello! 👋 Welcome to K.NJAMASI IT SMART TECH — "Your Trusted IT Partner". I can help you with information about our services, location, and contact details. How can I assist you?',
+      status: 'Online',
+      placeholder: 'Type your message...',
+      quickReplies: [
+        { label: '🛠️ Services', value: 'services' },
+        { label: '📞 Contact', value: 'contact' },
+        { label: '📍 Location', value: 'location' },
+        { label: '🕐 Hours', value: 'hours' },
+        { label: '💰 Pricing', value: 'pricing' },
+        { label: '🌐 Online Apps', value: 'online_apps' }
+      ],
+      serviceList: 'We offer a wide range of IT services:\n\n' +
+        '🔧 Computer & Phone Repair\n' +
+        '💿 Software Installation (Windows)\n' +
+        '🛡️ Antivirus & Updates\n' +
+        '📚 MS Office & Technology Training\n' +
+        '🌐 Networking Solutions\n' +
+        '🎨 Graphic Design (banners, flyers, logos, cards)\n' +
+        '📝 Online Applications (NIDA, TIN, TCU, NACTE, Passport, NAPA, HESLB, Birth/Death Certificates, Business Licenses, Business Name Registration)\n' +
+        '💼 Job Applications\n' +
+        '💡 IT Consultation\n\n' +
+        'Would you like to know more about any specific service?',
+      contact: 'You can reach us through:\n\n' +
+        '📱 WhatsApp: 0754229027\n' +
+        '📧 Email: kelvinnjamas6@gmail.com\n' +
+        '📸 Instagram: @k.njamasi\n' +
+        '🎵 TikTok: @k.njamasi\n\n' +
+        'We recommend WhatsApp for quick responses!',
+      location: 'We are located in Singida, Tanzania. 📍\n\n' +
+        'Feel free to visit our office for in-person services!',
+      hours: 'Working Hours:\n\n' +
+        '📅 Monday - Saturday\n' +
+        '🕗 8:00 AM - 6:00 PM\n\n' +
+        'You are welcome anytime during these hours!',
+      pricing: 'Our prices are very friendly! 💰\n\n' +
+        'We offer high-quality services at affordable rates. Each client receives fair pricing based on the service requested.\n\n' +
+        'For detailed pricing, please contact us on WhatsApp: 0754229027',
+      onlineApps: 'We help with various online applications:\n\n' +
+        '🪪 NIDA\n' +
+        '📋 TIN\n' +
+        '🎓 TCU & NACTE\n' +
+        '🛂 Passport\n' +
+        '📡 NAPA\n' +
+        '💰 HESLB\n' +
+        '📜 Birth / Death Certificates\n' +
+        '🏢 Business Licenses\n' +
+        '📝 Business Name Registration\n\n' +
+        'Let us know which one you need!',
+      jobs: 'We help create professional job applications. 💼\n\n' +
+        'Contact us on WhatsApp: 0754229027 for more details.',
+      repair: 'We do computer and phone repairs. 🔧\n\n' +
+        'If you have a device issue, bring it to us or contact us on WhatsApp: 0754229027 for a free assessment!',
+      training: 'We offer technology and software training:\n\n' +
+        '📊 MS Office (Word, Excel, PowerPoint)\n' +
+        '💻 Basic Computer Skills\n' +
+        '🖥️ Computer Maintenance\n\n' +
+        'Contact us for schedule and pricing: 0754229027',
+      graphic: 'We do professional Graphic Design:\n\n' +
+        '🎨 Banners & Flyers\n' +
+        '🖼️ Logos\n' +
+        '💳 Business Cards\n\n' +
+        'We deliver high-quality work! Contact us: 0754229027',
+      networking: 'We provide networking solutions for businesses and homes. 🌐\n\n' +
+        'Network setup, routers, and LAN. Contact us: 0754229027',
+      fallback: 'Sorry, I did not fully understand your question. 😊\n\n' +
+        'For further assistance, please contact us via:\n' +
+        '📱 WhatsApp: 0754229027\n' +
+        '📧 Email: kelvinnjamas6@gmail.com\n\n' +
+        'We will be happy to help!',
+      thanks: 'Thank you for reaching out! 😊 We are glad to assist. For more questions, reach us on WhatsApp: 0754229027.',
+      hello: 'Hello! 👋 Welcome to K.NJAMASI IT SMART TECH. How can I help you today?',
+      servicesTitle: 'Our Services',
+      contactTitle: 'Contact',
+      locationTitle: 'Location',
+      hoursTitle: 'Working Hours',
+      pricingTitle: 'Pricing',
+      onlineAppsTitle: 'Online Apps',
+      jobsTitle: 'Job Apps',
+      repairTitle: 'Repairs',
+      trainingTitle: 'Training',
+      graphicTitle: 'Graphic Design',
+      networkingTitle: 'Networking',
+    }
+  };
+
+  // ===== HELPER FUNCTIONS =====
+  function t(key) {
+    return responses[currentLang][key] || responses.en[key] || '';
+  }
+
+  function addBubble(text, sender) {
+    const div = document.createElement('div');
+    div.className = 'bubble ' + sender;
+    div.textContent = text;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function showTyping() {
+    const typing = document.createElement('div');
+    typing.className = 'typing-indicator';
+    typing.id = 'typingIndicator';
+    typing.innerHTML = '<span></span><span></span><span></span>';
+    messagesEl.appendChild(typing);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function removeTyping() {
+    const el = document.getElementById('typingIndicator');
+    if (el) el.remove();
+  }
+
+  function botReply(key) {
+    showTyping();
+    setTimeout(function() {
+      removeTyping();
+      const text = t(key);
+      addBubble(text, 'bot');
+    }, 600 + Math.random() * 400);
+  }
+
+  function renderQuickReplies() {
+    quickRepliesEl.innerHTML = '';
+    const qrs = t('quickReplies');
+    if (!qrs || !qrs.length) return;
+    qrs.forEach(function(qr) {
+      const btn = document.createElement('button');
+      btn.className = 'quick-reply-btn';
+      btn.textContent = qr.label;
+      btn.addEventListener('click', function() {
+        handleQuickReply(qr.value, qr.label);
+      });
+      quickRepliesEl.appendChild(btn);
+    });
+  }
+
+  function handleQuickReply(value, label) {
+    addBubble(label, 'user');
+    quickRepliesEl.innerHTML = '';
+    switch (value) {
+      case 'services': botReply('serviceList'); setTimeout(renderQuickReplies, 1200); break;
+      case 'contact': botReply('contact'); setTimeout(renderQuickReplies, 1200); break;
+      case 'location': botReply('location'); setTimeout(renderQuickReplies, 1200); break;
+      case 'hours': botReply('hours'); setTimeout(renderQuickReplies, 1200); break;
+      case 'pricing': botReply('pricing'); setTimeout(renderQuickReplies, 1200); break;
+      case 'online_apps': botReply('onlineApps'); setTimeout(renderQuickReplies, 1200); break;
+      default: botReply('fallback'); setTimeout(renderQuickReplies, 1200);
+    }
+  }
+
+  // ===== MESSAGE CLASSIFIER =====
+  function classifyMessage(msg) {
+    const lower = msg.toLowerCase().trim();
+
+    // Greetings
+    const greetings = ['hi', 'hello', 'hey', 'habari', 'jambo', 'shikamoo', 'mambo', 'sasa', 'morning', 'hujambo', 'tusenjile', 'good morning', 'good evening', 'good afternoon', 'karibu'];
+    if (greetings.some(g => lower.includes(g))) return 'greeting';
+
+    // Services
+    const services = ['service', 'huduma', 'services', 'wafanya', 'mnafanya', 'do you do', 'offer', 'hudum', 'mtandao', 'network', 'networking', 'grafik', 'design', 'banner', 'flyer', 'logo', 'card', 'picha', 'picture', 'program', 'programu', 'windows', 'antivirus', 'update', 'kompyuta', 'computer', 'simu', 'phone', 'repair', 'tengene', 'office', 'mafunzo', 'training', 'jifunze', 'learn', 'excel', 'word', 'powerpoint'];
+    if (services.some(s => lower.includes(s))) return 'services';
+
+    // Contact
+    const contacts = ['contact', 'wasiliana', 'email', 'whatsapp', 'simu', 'phone number', 'number', 'namba', 'insta', 'instagram', 'tiktok', 'wasiliane', 'piga', 'call', 'message', 'msg', 'ujumbe'];
+    if (contacts.some(c => lower.includes(c))) return 'contact';
+
+    // Location
+    const locations = ['location', 'mahali', 'wapi', 'where', 'singida', 'ofisi', 'office', 'address', 'addressi', 'mkoa', 'town', 'mjini'];
+    if (locations.some(l => lower.includes(l))) return 'location';
+
+    // Hours
+    const hours = ['hour', 'saa', 'time', 'wakati', 'masaa', 'when', 'lini', 'opening', 'funua', 'funge', 'siku', 'day', 'monday', 'jumatatu', 'saturday', 'jumamosi'];
+    if (hours.some(h => lower.includes(h))) return 'hours';
+
+    // Pricing
+    const pricing = ['price', 'bei', 'cost', 'gharama', 'how much', 'kiasi', 'ngapi', 'cheap', 'nafuu', 'rafiki', 'affordable'];
+    if (pricing.some(p => lower.includes(p))) return 'pricing';
+
+    // Online Apps
+    const apps = ['nida', 'tin', 'tcu', 'nacte', 'passport', 'napa', 'heslb', 'application', 'maombi', 'certificate', 'hati', 'license', 'leseni', 'biashara', 'business', 'mtandaoni', 'online', 'register', 'sajili', 'kusajili', 'registration', 'birth', 'death', 'kuzaliwa', 'kufariki', 'tin', 'passport', 'nida'];
+    if (apps.some(a => lower.includes(a))) return 'online_apps';
+
+    // Jobs
+    const jobs = ['job', 'kazi', 'ajira', 'maombi', 'application', 'cv', 'resume', 'employment', 'employment', 'apply', 'omba'];
+    if (jobs.some(j => lower.includes(j))) return 'jobs';
+
+    // Repair
+    const repair = ['repair', 'broken', 'haribika', 'hitilafu', 'error', 'problem', 'shida', 'tatizo', 'haifanyi', 'si kufanya', 'not working', 'slow', 'pole', 'virus'];
+    if (repair.some(r => lower.includes(r))) return 'repair';
+
+    // Training
+    const train = ['train', 'mafunzo', 'learn', 'jifunze', 'teach', 'fundisha', 'course', 'kozi', 'computer skill', 'ujuzi'];
+    if (train.some(t => lower.includes(t))) return 'training';
+
+    // Graphic Design
+    const graphic = ['design', 'ubunifu', 'grafiki', 'graphic', 'banner', 'flyer', 'poster', 'logo', 'card', 'business card', 'kadi'];
+    if (graphic.some(g => lower.includes(g))) return 'graphic';
+
+    // Networking
+    const networking = ['network', 'mtandao', 'wifi', 'lan', 'router', 'cable', 'kebo', 'internet', 'mtandao'];
+    if (networking.some(n => lower.includes(n))) return 'networking';
+
+    // Thanks
+    const thanks = ['thanks', 'asante', 'thank you', 'shukrani', 'zuri', 'cool', 'nice', 'great', 'vizuri', 'mzuri'];
+    if (thanks.some(tk => lower.includes(tk))) return 'thanks';
+
+    // Default
+    return 'fallback';
+  }
+
+  function handleUserMessage() {
+    const text = chatInput.value.trim();
+    if (!text) return;
+
+    addBubble(text, 'user');
+    chatInput.value = '';
+    quickRepliesEl.innerHTML = '';
+
+    const category = classifyMessage(text);
+    const keyMap = {
+      'greeting': 'hello',
+      'services': 'serviceList',
+      'contact': 'contact',
+      'location': 'location',
+      'hours': 'hours',
+      'pricing': 'pricing',
+      'online_apps': 'onlineApps',
+      'jobs': 'jobs',
+      'repair': 'repair',
+      'training': 'training',
+      'graphic': 'graphic',
+      'networking': 'networking',
+      'thanks': 'thanks',
+      'fallback': 'fallback'
+    };
+
+    botReply(keyMap[category] || 'fallback');
+    setTimeout(renderQuickReplies, 1200);
+  }
+
+  // ===== EVENT LISTENERS =====
+  toggleBtn.addEventListener('click', function() {
+    chatOpen = !chatOpen;
+    chatWindow.classList.toggle('open', chatOpen);
+    toggleBtn.classList.toggle('active', chatOpen);
+    if (chatOpen) {
+      chatInput.focus();
+      if (messagesEl.children.length === 0) {
+        setTimeout(function() {
+          botReply('greeting');
+          setTimeout(renderQuickReplies, 1000);
+        }, 300);
+      }
+    }
+  });
+
+  sendBtn.addEventListener('click', handleUserMessage);
+  chatInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleUserMessage();
+    }
+  });
+
+  // Language switch
+  langSwBtn.addEventListener('click', function() {
+    currentLang = 'sw';
+    langSwBtn.classList.add('active');
+    langEnBtn.classList.remove('active');
+    headerStatus.textContent = t('status');
+    chatInput.placeholder = t('placeholder');
+    addBubble('Lugha imebadilishwa kuwa Kiswahili. 🇹🇿', 'bot');
+    renderQuickReplies();
+  });
+
+  langEnBtn.addEventListener('click', function() {
+    currentLang = 'en';
+    langEnBtn.classList.add('active');
+    langSwBtn.classList.remove('active');
+    headerStatus.textContent = t('status');
+    chatInput.placeholder = t('placeholder');
+    addBubble('Language changed to English. 🇺🇸', 'bot');
+    renderQuickReplies();
+  });
+
+  // Auto-detect language from browser
+  (function detectLang() {
+    const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+    if (browserLang.startsWith('sw')) {
+      currentLang = 'sw';
+      langSwBtn.classList.add('active');
+      langEnBtn.classList.remove('active');
+    } else {
+      currentLang = 'en';
+      langEnBtn.classList.add('active');
+      langSwBtn.classList.remove('active');
+    }
+  })();
+
+})();
+
+</script>
 </body>
 </html>
