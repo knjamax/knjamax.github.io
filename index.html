@@ -1728,3 +1728,26 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   }
 }
 </style>
+
+<style id="clear-bubble-smoke-visibility">
+/* Make the approved bubble and cursor smoke visibly present without changing their motion. */
+.hero > .reference-motion-video {
+  opacity: .94 !important;
+}
+.hero > .reference-motion-video video {
+  opacity: 1 !important;
+  filter: saturate(1.3) contrast(1.1) brightness(.96) !important;
+}
+.hero > .reference-motion-video::after {
+  background: transparent !important;
+}
+.hero > .compact-fluid-canvas {
+  opacity: 1 !important;
+  filter: saturate(1.62) contrast(1.12) brightness(1.16) !important;
+}
+@media(max-width:700px){
+  .hero > .reference-motion-video { opacity: .88 !important; }
+  .hero > .reference-motion-video video { opacity: .96 !important; }
+  .hero > .compact-fluid-canvas { opacity: 1 !important; filter: saturate(1.48) contrast(1.1) brightness(1.12) !important; }
+}
+</style>
