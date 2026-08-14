@@ -442,6 +442,10 @@ main{position:relative;isolation:isolate}.scene,.trust,.section,.footer{--scene-
 <style id="knjamasi-smoke-trail-layer">
 .hero>.interaction-trail-stage{display:none!important}.hero>.smoke-trail-stage{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden;mix-blend-mode:screen;opacity:.78;filter:blur(.15px)}.hero>.smoke-trail-stage canvas{display:block;width:100%;height:100%;pointer-events:none}.light-mode .hero>.smoke-trail-stage{opacity:.42;mix-blend-mode:multiply;filter:blur(.2px) saturate(.82)}@media(max-width:700px){.hero>.smoke-trail-stage{opacity:.56}}@media(prefers-reduced-motion:reduce){.hero>.smoke-trail-stage{display:none!important}}
 </style>
+<style id="knjamasi-gloria-parallax-layer">
+.hero>.smoke-trail-stage{display:none!important}.hero>.reference-motion-video{will-change:transform;transition:transform .35s cubic-bezier(.2,.7,.2,1)}.hero>.reference-motion-video video{will-change:transform;transition:filter .5s ease}.hero>.hero-copy{will-change:transform;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+@media(prefers-reduced-motion:reduce){.hero>.reference-motion-video,.hero>.hero-copy{transform:none!important;transition:none!important}}
+</style>
 <style id="gloria-fluid-orb-layer">
 .hero>.aurora-stage{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden;opacity:.94;mix-blend-mode:screen}.hero>.aurora-stage canvas{display:block;width:100%;height:100%;pointer-events:none}.light-mode .hero>.aurora-stage{opacity:.58;mix-blend-mode:multiply}.light-mode .hero>.aurora-stage canvas{filter:saturate(.82) brightness(.78)}
 @media(max-width:700px){.hero>.aurora-stage{opacity:.78}.light-mode .hero>.aurora-stage{opacity:.45}}
@@ -1065,6 +1069,16 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
     for(let i=smoke.length-1;i>=0;i--){const p=smoke[i];p.life-=dt*.00034;const swirl=Math.sin(now*.0008+p.seed+p.y*.008)*.09,swirl2=Math.cos(now*.0007+p.seed+p.x*.006)*.08;p.vx+=(swirl-p.vy*.015)*dt*.06;p.vy+=(swirl2+p.vx*.012)*dt*.06;p.vx*=.994;p.vy*=.994;p.x+=p.vx*dt*.7+(pointer.x-p.x)*.00018*dt;p.y+=p.vy*dt*.7+(pointer.y-p.y)*.00018*dt;p.size+=dt*.018;if(p.life<=0){smoke.splice(i,1);continue}const pulse=1+Math.sin(now*.0012+p.seed)*.1;const r=p.size*pulse;const g=ctx.createRadialGradient(p.x-r*.13,p.y-r*.2,0,p.x,p.y,r);g.addColorStop(0,'hsla('+p.hue+',92%,72%,'+(p.life*.16)+')');g.addColorStop(.22,'hsla('+(p.hue+18)+',88%,62%,'+(p.life*.11)+')');g.addColorStop(.58,'hsla('+(p.hue+38)+',86%,52%,'+(p.life*.055)+')');g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.globalAlpha=.95;ctx.beginPath();ctx.ellipse(p.x,p.y,r*(1.35+Math.sin(p.seed+now*.0009)*.18),r*(.72+Math.cos(p.seed)*.16),p.rot+Math.sin(now*.0006+p.seed)*.2,0,Math.PI*2);ctx.fill()}
     ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
   };raf=requestAnimationFrame(draw);window.addEventListener('pagehide',()=>cancelAnimationFrame(raf),{once:true});
+})();
+</script>
+<script id="knjamasi-gloria-parallax-script">
+(function(){
+  const hero=document.querySelector('.hero'),videoLayer=hero?.querySelector('.reference-motion-video'),video=videoLayer?.querySelector('video'),copy=hero?.querySelector('.hero-copy');
+  if(!hero||!videoLayer||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const target={x:0,y:0},smooth={x:0,y:0};let raf=0;
+  const move=e=>{const r=hero.getBoundingClientRect();target.x=Math.max(-1,Math.min(1,(e.clientX-(r.left+r.width/2))/(r.width/2)));target.y=Math.max(-1,Math.min(1,(e.clientY-(r.top+r.height/2))/(r.height/2)))};
+  hero.addEventListener('pointermove',move,{passive:true});
+  const loop=()=>{smooth.x+=(target.x-smooth.x)*.055;smooth.y+=(target.y-smooth.y)*.055;videoLayer.style.transform='translate3d('+(smooth.x*1.35).toFixed(2)+'%,'+(smooth.y*1.05).toFixed(2)+'%,0) scale(1.035)';if(video)video.style.transform='translate3d('+(smooth.x*.55).toFixed(2)+'%,'+(smooth.y*.45).toFixed(2)+'%,0) scale(1.025)';if(copy)copy.style.transform='translate3d('+(smooth.x*-.22).toFixed(2)+'%,'+(smooth.y*-.16).toFixed(2)+'%,0)';raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop);window.addEventListener('pagehide',()=>cancelAnimationFrame(raf),{once:true});
 })();
 </script>
 </body>
