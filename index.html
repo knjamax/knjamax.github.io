@@ -1405,3 +1405,21 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   filter: saturate(.62) brightness(.38) contrast(.9) !important;
 }
 </style>
+
+<style id="restore-original-bubble-only">
+/* Restore the original reference bubble; remove the replacement CSS orb. */
+.hero .editorial-orb {
+  display: none !important;
+}
+.hero > .reference-motion-video {
+  display: block !important;
+  opacity: .42 !important;
+  z-index: 1 !important;
+  filter: saturate(.9) contrast(1.02) brightness(.78) !important;
+}
+.hero > .reference-motion-video video {
+  display: block !important;
+  opacity: .86 !important;
+  mix-blend-mode: screen !important;
+}
+</style>
