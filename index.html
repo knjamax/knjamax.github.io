@@ -1689,3 +1689,22 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   }
 }
 </style>
+
+<style id="gloria-editorial-title-accent">
+/* Gloria-inspired outlined editorial treatment for the second title line only */
+.hero .mega-title .title-accent {
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  -webkit-text-stroke: 1.35px rgba(248,250,255,.96) !important;
+  text-shadow: 0 0 10px rgba(8,12,24,.82), 0 3px 10px rgba(0,0,0,.72) !important;
+  font-weight: 500 !important;
+  letter-spacing: .015em !important;
+  paint-order: stroke fill !important;
+}
+@media(max-width:700px){
+  .hero .mega-title .title-accent {
+    -webkit-text-stroke: 1px rgba(248,250,255,.96) !important;
+    letter-spacing: .005em !important;
+  }
+}
+</style>
