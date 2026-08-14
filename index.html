@@ -1956,3 +1956,10 @@ body{min-width:320px}
 }
 @media (prefers-reduced-motion: reduce){.navbar,.nav-links,.hero *{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
+<style id="mobile-scroll-fix">
+html,body{overflow-x:hidden!important;overflow-y:auto!important;min-height:100%!important}
+body{touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important}
+.hero{touch-action:pan-y!important}
+.hero>.compact-fluid-canvas,.hero>.fluid-simulation-stage,.hero>.reference-motion-video,.hero>.reference-motion-video video{touch-action:none!important;pointer-events:none!important}
+@media(max-width:900px){.navbar .nav-links{touch-action:pan-y!important}.hero{min-height:auto!important;height:auto!important}.hero-grid{min-height:0!important}.hero-copy.reveal{min-height:0!important}}
+</style>

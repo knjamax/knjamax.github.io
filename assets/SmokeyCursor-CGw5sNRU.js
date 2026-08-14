@@ -1469,7 +1469,6 @@ hero.addEventListener('click', e => {
 });
 
 hero.addEventListener('touchstart', e => {
-    e.preventDefault();
     const touches = e.targetTouches;
     while (touches.length >= pointers.length)
         pointers.push(new pointerPrototype());
@@ -1482,7 +1481,6 @@ hero.addEventListener('touchstart', e => {
 });
 
 hero.addEventListener('touchmove', e => {
-    e.preventDefault();
     const touches = e.targetTouches;
     for (let i = 0; i < touches.length; i++) {
         let pointer = pointers[i + 1];
@@ -1492,8 +1490,7 @@ hero.addEventListener('touchmove', e => {
         let posY = scaleByPixelRatio(touches[i].clientY - rect.top);
         updatePointerMoveData(pointer, posX, posY);
     }
-}, false);
-
+}, { passive: true });
 window.addEventListener('touchend', e => {
     const touches = e.changedTouches;
     for (let i = 0; i < touches.length; i++)
