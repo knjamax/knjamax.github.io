@@ -1793,3 +1793,22 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   }
 }
 </style>
+
+<style id="lower-title-no-selection">
+.hero .mega-title {
+  transform: translateY(28px) !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -webkit-touch-callout: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  cursor: default !important;
+}
+.hero .mega-title .title-main,
+.hero .mega-title .title-accent {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+@media(max-width:700px){
+  .hero .mega-title { transform: translateY(20px) !important; }
+}
+</style>
