@@ -1308,9 +1308,10 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   background-image:
     linear-gradient(180deg, rgba(7,8,14,.78), rgba(7,8,14,.42) 48%, rgba(7,8,14,.9)),
     url("assets/knjamax/robot-services.png"),
-    url("assets/knjamax/solutions.png") !important;
-  background-size: cover, 38% auto, 36% auto !important;
-  background-position: center, 8% 50%, 92% 50% !important;
+    url("assets/knjamax/solutions.png"),
+    url("assets/knjamax/robot-laptop.png") !important;
+  background-size: cover, 28% auto, 28% auto, 24% auto !important;
+  background-position: center, 7% 50%, 93% 44%, 50% 15% !important;
   background-repeat: no-repeat !important;
   filter: saturate(.55) contrast(.9) brightness(.5) blur(12px) !important;
 }
@@ -1322,7 +1323,7 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
 .hero > .compact-fluid-canvas { z-index: 45 !important; }
 @media(max-width:700px){
   .hero > .reference-motion-video { opacity: .32 !important; }
-  .hero::before { opacity: .05 !important; background-size: cover, 62% auto, 58% auto !important; }
+  .hero::before { opacity: .045 !important; background-size: cover, 48% auto, 46% auto, 42% auto !important; }
   .hero .editorial-orb { opacity: .78 !important; }
 }
 </style>
