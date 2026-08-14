@@ -1617,3 +1617,41 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   .hero > .reference-motion-video video{opacity:.82!important}
 }
 </style>
+
+<style id="owned-images-behind-approved-video-bubble">
+/* Owned project imagery sits behind the approved animated video bubble. */
+.hero::before {
+  display: block !important;
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  opacity: .28 !important;
+  background-image:
+    linear-gradient(180deg, rgba(5,7,14,.52), rgba(5,7,14,.18) 48%, rgba(5,7,14,.62)),
+    url("assets/knjamax/robot-services.png"),
+    url("assets/knjamax/solutions.png"),
+    url("assets/knjamax/robot-laptop.png") !important;
+  background-size: 100% 100%, 38% auto, 38% auto, 38% auto !important;
+  background-position: center, 4% 50%, 50% 50%, 96% 50% !important;
+  background-repeat: no-repeat !important;
+  filter: saturate(.8) brightness(.62) contrast(.92) blur(1px) !important;
+  transform: none !important;
+}
+.hero > .reference-motion-video {
+  z-index: 2 !important;
+}
+.hero > .fluid-simulation-stage,
+.hero > .compact-fluid-canvas {
+  z-index: 45 !important;
+}
+@media(max-width:700px){
+  .hero::before {
+    opacity: .2 !important;
+    background-size: 100% 100%, 64% auto, 64% auto, 64% auto !important;
+    background-position: center, -10% 50%, 50% 50%, 110% 50% !important;
+    filter: saturate(.72) brightness(.56) blur(1.5px) !important;
+  }
+}
+</style>
