@@ -1304,16 +1304,16 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   mix-blend-mode: screen !important;
 }
 .hero::before {
-  opacity: .075 !important;
+  opacity: .11 !important;
   background-image:
-    linear-gradient(180deg, rgba(7,8,14,.78), rgba(7,8,14,.42) 48%, rgba(7,8,14,.9)),
+    linear-gradient(180deg, rgba(7,8,14,.78), rgba(7,8,14,.44) 48%, rgba(7,8,14,.9)),
     url("assets/knjamax/robot-services.png"),
     url("assets/knjamax/solutions.png"),
     url("assets/knjamax/robot-laptop.png") !important;
-  background-size: cover, 28% auto, 28% auto, 24% auto !important;
-  background-position: center, 7% 50%, 93% 44%, 50% 15% !important;
+  background-size: cover, cover, cover, cover !important;
+  background-position: center, center, center, center !important;
   background-repeat: no-repeat !important;
-  filter: saturate(.55) contrast(.9) brightness(.5) blur(12px) !important;
+  filter: saturate(.58) contrast(.88) brightness(.42) !important;
 }
 .hero::after {
   background: radial-gradient(ellipse at 50% 54%, transparent 0 34%, rgba(7,8,14,.12) 58%, rgba(7,8,14,.55) 100%) !important;
@@ -1323,7 +1323,7 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
 .hero > .compact-fluid-canvas { z-index: 45 !important; }
 @media(max-width:700px){
   .hero > .reference-motion-video { opacity: .32 !important; }
-  .hero::before { opacity: .045 !important; background-size: cover, 48% auto, 46% auto, 42% auto !important; }
+  .hero::before { opacity: .07 !important; background-size: cover, cover, cover, cover !important; filter: saturate(.52) brightness(.34) !important; }
   .hero .editorial-orb { opacity: .78 !important; }
 }
 </style>
@@ -1342,5 +1342,51 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
 }
 .hero > .compact-fluid-canvas {
   z-index: 45 !important;
+}
+</style>
+
+<style id="clean-small-spots-keep-bubble">
+/* Remove the repeated small spots from the reference video; retain one soft organic bubble. */
+.hero > .reference-motion-video {
+  display: none !important;
+}
+.hero .editorial-orb {
+  display: block !important;
+  z-index: 3 !important;
+  width: min(58vw, 720px) !important;
+  height: min(58vw, 720px) !important;
+  border-radius: 43% 57% 52% 48% / 55% 46% 54% 45% !important;
+  background:
+    radial-gradient(ellipse at 31% 27%, rgba(255,224,143,.52), transparent 24%),
+    radial-gradient(ellipse at 73% 31%, rgba(81,128,255,.48), transparent 31%),
+    radial-gradient(ellipse at 32% 72%, rgba(220,156,48,.42), transparent 32%),
+    radial-gradient(ellipse at 53% 50%, rgba(39,50,92,.78) 0 47%, rgba(13,18,35,.85) 70%, transparent 79%) !important;
+  box-shadow: inset 0 0 34px rgba(255,255,255,.18), 0 0 70px rgba(55,87,180,.16) !important;
+  filter: blur(.15px) saturate(.92) !important;
+}
+@media(max-width:700px){
+  .hero .editorial-orb{width:76vw!important;height:76vw!important;opacity:.78!important}
+}
+</style>
+
+<style id="remove-small-hero-spots">
+/* Keep only the single bubble and the owned background; remove foreground slide artifacts. */
+.hero-visual .hero-slide,
+.hero-visual .hero-scan,
+.hero-visual .hero-stat,
+.hero-visual .hero-dots {
+  display: none !important;
+}
+.hero-visual {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+</style>
+
+<style id="remove-background-dot-pattern">
+/* Remove the repeated star/dot pattern; retain the bubble and owned image atmosphere. */
+.hero {
+  background-image: none !important;
+  background-color: #08090d !important;
 }
 </style>
