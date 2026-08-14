@@ -500,6 +500,15 @@ main{position:relative;isolation:isolate}.scene,.trust,.section,.footer{--scene-
 @media(max-width:700px){.hero .mega-title .title-main{animation-duration:.9s}.hero .mega-title .title-accent{animation-duration:.85s}.hero .typewriter-line{animation-delay:.92s}.hero-copy>p{animation-delay:1.08s}.hero .hero-actions{animation-delay:1.2s}}
 @media(prefers-reduced-motion:reduce){.hero .eyebrow,.hero .mega-title .title-main,.hero .mega-title .title-accent,.hero .typewriter-line,.hero-copy>p,.hero .hero-actions,.hero-visual .gloria-scroll-hint{opacity:1!important;animation:none!important;transform:none!important;filter:none!important}}
 </style>
+<style id="knjamasi-title-typing">
+.hero .mega-title .title-main{animation:none!important;opacity:1!important;filter:none!important;letter-spacing:-.12em!important;min-width:1ch}
+.hero .mega-title .title-main.is-typing::after{content:'|';display:inline-block;margin-left:.04em;color:var(--g-lime);font-weight:400;letter-spacing:0;animation:titleCaret .72s steps(1) infinite}
+.hero .mega-title .title-main.is-typed::after{display:none}
+.hero .mega-title .title-accent.title-waiting{opacity:0!important;transform:translateY(28px)!important;filter:blur(10px)!important;animation:none!important}
+.hero .mega-title .title-accent.title-reveal{opacity:1!important;transform:none!important;filter:none!important;animation:gloriaOutlineIn .9s cubic-bezier(.16,1,.3,1) both!important}
+@keyframes titleCaret{50%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.hero .mega-title .title-main.is-typing::after{animation:none}.hero .mega-title .title-accent.title-waiting{opacity:1!important;transform:none!important;filter:none!important}.hero .mega-title .title-accent.title-reveal{animation:none!important}}
+</style>
 </head>
 <body>
   <div class="live-wallpaper" aria-hidden="true"></div>
@@ -536,6 +545,8 @@ main{position:relative;isolation:isolate}.scene,.trust,.section,.footer{--scene-
     function applyContactLanguage(lang){const c=contactCopy[lang]||contactCopy.sw;document.getElementById('contactTitle').innerHTML=c.title;document.getElementById('contactIntro').textContent=c.intro;document.getElementById('consultationCta').childNodes[0].textContent=c.cta+' ';document.getElementById('formTitle').textContent=c.formTitle;document.getElementById('nameLabel').textContent=c.name;document.getElementById('visitorName').placeholder=c.namePh;document.getElementById('emailLabel').textContent=c.email;document.getElementById('visitorEmail').placeholder=c.emailPh;document.getElementById('serviceLabel').textContent=c.service;document.getElementById('servicePlaceholder').textContent=c.servicePh;document.getElementById('needsLabel').textContent=c.needs;document.getElementById('visitorNeeds').placeholder=c.needsPh;document.getElementById('formSubmit').childNodes[0].textContent=c.submit+' ';document.getElementById('contactForm').dataset.sent=c.sent;}
     document.querySelectorAll('.site-lang-btn').forEach(b=>b.addEventListener('click',()=>setTimeout(()=>applyContactLanguage(b.dataset.siteLang),0)));applyContactLanguage(localStorage.getItem('knjamasi-language')||'sw');
     document.getElementById('contactForm').addEventListener('submit',e=>{e.preventDefault();const f=e.currentTarget,c=contactCopy[localStorage.getItem('knjamasi-language')||'sw'];const msg=`Hello K.NJAMASI IT SMART TECH.%0A%0AName: ${encodeURIComponent(f.name.value)}%0AEmail: ${encodeURIComponent(f.email.value)}%0AService: ${encodeURIComponent(f.service.value)}%0ANeeds: ${encodeURIComponent(f.needs.value)}`;document.getElementById('formStatus').textContent=c.sent;window.open('https://wa.me/255754229027?text='+msg,'_blank','noopener');f.reset();});
+    // Gloria-style title typing: K.NJAMASI writes itself, then the outlined line reveals.
+    (()=>{const main=document.querySelector('.hero .mega-title .title-main'),accent=document.querySelector('.hero .mega-title .title-accent');if(!main||!accent)return;const full='K.NJAMASI';const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;main.textContent='';main.classList.add('is-typing');accent.classList.add('title-waiting');if(reduce){main.textContent=full;main.classList.remove('is-typing');main.classList.add('is-typed');accent.classList.remove('title-waiting');accent.classList.add('title-reveal');return}let i=0;const typeNext=()=>{main.textContent=full.slice(0,i+1);i++;if(i<full.length){setTimeout(typeNext,105)}else{main.classList.remove('is-typing');main.classList.add('is-typed');setTimeout(()=>{accent.classList.remove('title-waiting');accent.classList.add('title-reveal')},260)}};setTimeout(typeNext,360)})();
 
   </script>
 
