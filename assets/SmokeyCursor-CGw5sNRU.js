@@ -34,15 +34,15 @@ resizeCanvas();
 
 let config = {
     SIM_RESOLUTION: 96,
-    DYE_RESOLUTION: 512,
+    DYE_RESOLUTION: 576,
     CAPTURE_RESOLUTION: 512,
-    DENSITY_DISSIPATION: 0.985,
-    VELOCITY_DISSIPATION: 0.42,
-    PRESSURE: 0.82,
-    PRESSURE_ITERATIONS: 18,
-    CURL: 24,
-    SPLAT_RADIUS: 0.14,
-    SPLAT_FORCE: 6000,
+    DENSITY_DISSIPATION: 0.992,
+    VELOCITY_DISSIPATION: 0.28,
+    PRESSURE: 0.84,
+    PRESSURE_ITERATIONS: 20,
+    CURL: 28,
+    SPLAT_RADIUS: 0.115,
+    SPLAT_FORCE: 5400,
     SHADING: true,
     COLORFUL: true,
     COLOR_UPDATE_SPEED: 10,
@@ -52,7 +52,7 @@ let config = {
     BLOOM: true,
     BLOOM_ITERATIONS: 5,
     BLOOM_RESOLUTION: 160,
-    BLOOM_INTENSITY: 0.55,
+    BLOOM_INTENSITY: 0.62,
     BLOOM_THRESHOLD: 0.6,
     BLOOM_SOFT_KNEE: 0.7,
     SUNRAYS: false,
@@ -1463,7 +1463,9 @@ hero.addEventListener('click', e => {
     const pointer = pointers[0];
     const x = (e.clientX - rect.left) / rect.width;
     const y = 1.0 - (e.clientY - rect.top) / rect.height;
-    splat(x, y, pointer.deltaX * 2.0, pointer.deltaY * 2.0, generateColor());
+    const kickX = (Math.random() - 0.5) * 0.11;
+    const kickY = (Math.random() - 0.5) * 0.11;
+    splat(x, y, pointer.deltaX * 7.0 + kickX, pointer.deltaY * 7.0 + kickY, generateColor());
 });
 
 hero.addEventListener('touchstart', e => {
