@@ -1219,3 +1219,30 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
 </script>
 </body>
 </html>
+
+<style id="fluid-visibility-final">
+/* Fluid is clearly visible above atmosphere/orb, but editorial copy stays on top. */
+.hero > .compact-fluid-canvas {
+  z-index: 45 !important;
+  pointer-events: none !important;
+}
+.hero > .reference-motion-video,
+.hero > .editorial-orb,
+.hero > .hero-visual {
+  z-index: 1 !important;
+}
+.hero > .hero-grid {
+  position: relative !important;
+  z-index: 60 !important;
+}
+.hero > .hero-grid > .hero-copy {
+  position: relative !important;
+  z-index: 70 !important;
+}
+.navbar,
+.chat-widget,
+.whatsapp-float,
+.back-to-top {
+  z-index: 1000 !important;
+}
+</style>
