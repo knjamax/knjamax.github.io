@@ -510,9 +510,9 @@ main{position:relative;isolation:isolate}.scene,.trust,.section,.footer{--scene-
 @media(prefers-reduced-motion:reduce){.hero .mega-title .title-main.is-typing::after{animation:none}.hero .mega-title .title-accent.title-waiting{opacity:1!important;transform:none!important;filter:none!important}.hero .mega-title .title-accent.title-reveal{animation:none!important}}
 </style>
 <style id="compact-fluid-smoke">
-.compact-fluid-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:6;pointer-events:none;display:block;opacity:.82;mix-blend-mode:screen}
-.light-mode .compact-fluid-canvas{opacity:.42;mix-blend-mode:multiply;filter:saturate(.82)}
-@media(max-width:700px){.compact-fluid-canvas{opacity:.68}.light-mode .compact-fluid-canvas{opacity:.3}}
+.compact-fluid-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:12;pointer-events:none;display:block;opacity:1;mix-blend-mode:screen;filter:saturate(1.35) brightness(1.12)}
+.light-mode .compact-fluid-canvas{opacity:.72;mix-blend-mode:screen;filter:saturate(1.2) brightness(1.04)}
+@media(max-width:700px){.compact-fluid-canvas{opacity:.9;filter:saturate(1.22) brightness(1.08)}.light-mode .compact-fluid-canvas{opacity:.62}}
 @media(prefers-reduced-motion:reduce){.compact-fluid-canvas{display:none!important}}
 </style>
 <style id="final-home-visibility-layout">
@@ -535,7 +535,7 @@ main{position:relative;isolation:isolate}.scene,.trust,.section,.footer{--scene-
 .hero-copy>p{position:relative!important;z-index:22!important;margin:14px auto 0!important;max-width:560px!important}
 .hero-actions{position:relative!important;z-index:22!important;justify-content:center!important;margin-top:22px!important}
 .hero>.editorial-orb,.hero:after{z-index:3!important;pointer-events:none!important}
-.hero>.compact-fluid-canvas{z-index:7!important}
+.hero>.compact-fluid-canvas{z-index:12!important;opacity:1!important;filter:saturate(1.35) brightness(1.12)!important}
 .hero>.reference-motion-video{z-index:1!important}
 .hero-visual{z-index:8!important;pointer-events:none!important;background:transparent!important;border:0!important;box-shadow:none!important;min-height:0!important}
 .hero-visual .gloria-scroll-hint{z-index:24!important;bottom:18px!important}
