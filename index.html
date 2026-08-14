@@ -1289,3 +1289,40 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   .hero::after{background:radial-gradient(ellipse at 50% 54%,transparent 0 29%,rgba(7,8,14,.28) 58%,rgba(7,8,14,.72) 100%)!important}
 }
 </style>
+
+<style id="restore-original-home-composition">
+/* Restore the original hero atmosphere; owned images remain only as a quiet distant layer. */
+.hero > .reference-motion-video {
+  display: block !important;
+  z-index: 1 !important;
+  opacity: .42 !important;
+  mix-blend-mode: screen !important;
+  filter: saturate(.82) contrast(1.04) brightness(.82) !important;
+}
+.hero > .reference-motion-video video {
+  opacity: .55 !important;
+  mix-blend-mode: screen !important;
+}
+.hero::before {
+  opacity: .075 !important;
+  background-image:
+    linear-gradient(180deg, rgba(7,8,14,.78), rgba(7,8,14,.42) 48%, rgba(7,8,14,.9)),
+    url("assets/knjamax/robot-services.png"),
+    url("assets/knjamax/solutions.png") !important;
+  background-size: cover, 38% auto, 36% auto !important;
+  background-position: center, 8% 50%, 92% 50% !important;
+  background-repeat: no-repeat !important;
+  filter: saturate(.55) contrast(.9) brightness(.5) blur(12px) !important;
+}
+.hero::after {
+  background: radial-gradient(ellipse at 50% 54%, transparent 0 34%, rgba(7,8,14,.12) 58%, rgba(7,8,14,.55) 100%) !important;
+  mix-blend-mode: multiply !important;
+}
+.hero .editorial-orb { display: block !important; z-index: 3 !important; opacity: .96 !important; }
+.hero > .compact-fluid-canvas { z-index: 45 !important; }
+@media(max-width:700px){
+  .hero > .reference-motion-video { opacity: .32 !important; }
+  .hero::before { opacity: .05 !important; background-size: cover, 62% auto, 58% auto !important; }
+  .hero .editorial-orb { opacity: .78 !important; }
+}
+</style>
