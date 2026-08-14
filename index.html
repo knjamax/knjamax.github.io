@@ -1246,3 +1246,46 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   z-index: 1000 !important;
 }
 </style>
+
+<style id="lightweight-distant-image-atmosphere">
+/* Lightweight distant imagery: static compressed assets replace the heavy hero video. */
+.hero > .reference-motion-video {
+  display: none !important;
+}
+.hero::before {
+  display: block !important;
+  content: "" !important;
+  position: absolute !important;
+  inset: -10% !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  opacity: .13 !important;
+  background-image:
+    linear-gradient(180deg, rgba(7,8,14,.68), rgba(7,8,14,.26) 48%, rgba(7,8,14,.82)),
+    radial-gradient(circle at 50% 50%, rgba(90,125,210,.18), transparent 42%),
+    url("assets/knjamax/video-reference-16x9.jpg"),
+    url("assets/knjamax/services-poster.jpg") !important;
+  background-size: cover, cover, 112% auto, 48% auto !important;
+  background-position: center, center, center, 12% 50% !important;
+  background-repeat: no-repeat !important;
+  filter: saturate(.62) contrast(.88) brightness(.52) blur(10px) !important;
+  transform: scale(1.06) !important;
+}
+.hero::after {
+  display: block !important;
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+  background: radial-gradient(ellipse at 50% 54%, transparent 0 27%, rgba(7,8,14,.18) 54%, rgba(7,8,14,.68) 100%) !important;
+  mix-blend-mode: multiply !important;
+}
+.hero > .compact-fluid-canvas { z-index: 45 !important; }
+.hero .editorial-orb { display: block !important; z-index: 3 !important; opacity: .78 !important; }
+@media(max-width:700px){
+  .hero::before{opacity:.09!important;filter:saturate(.55) brightness(.5) blur(11px)!important;background-size:cover,cover,112% auto,62% auto!important;background-position:center,center,center,8% 50%!important}
+  .hero .editorial-orb{opacity:.68!important}
+  .hero::after{background:radial-gradient(ellipse at 50% 54%,transparent 0 29%,rgba(7,8,14,.28) 58%,rgba(7,8,14,.72) 100%)!important}
+}
+</style>
