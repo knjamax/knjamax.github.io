@@ -423,6 +423,11 @@ body{font-family:'Albert Sans',sans-serif;background:var(--g-black);color:var(--
 @media(max-width:700px){.hero>.galaxy-stage{opacity:.78}.light-mode .hero>.galaxy-stage{opacity:.48}}
 @media(prefers-reduced-motion:reduce){.hero>.galaxy-stage{display:none}}
 </style>
+<style id="gloria-global-atmosphere">
+/* Shared Gloria-style atmosphere across the complete scroll story */
+main{position:relative;isolation:isolate}.scene,.trust,.section,.footer{--scene-h:145;--scene-x:0px;--scene-y:0px;--scene-speed:1;position:relative}.scene:before{background:radial-gradient(circle at calc(50% + var(--scene-x)) calc(40% + var(--scene-y)),hsla(var(--scene-h),90%,68%,.055),transparent 28%),linear-gradient(90deg,transparent 0 49.8%,rgba(245,243,238,.08) 50%,transparent 50.2%),linear-gradient(rgba(245,243,238,.04) 1px,transparent 1px)!important;background-size:100% 100%,100% 100%,100% 120px!important;transition:background-position 1.2s cubic-bezier(.22,1,.36,1)}.scene:after{background:radial-gradient(circle,hsla(var(--scene-h),90%,68%,.13),transparent 68%)!important;transform:translate3d(var(--scene-x),var(--scene-y),0);transition:transform 1.5s cubic-bezier(.22,1,.36,1),background 1.2s ease}.scene.is-active:after{animation:sceneGlow 10s ease-in-out infinite alternate}.scene .reveal{transition-delay:calc(var(--scene-delay, 0) * 80ms)}.scene-history{--scene-h:160}.scene-services{--scene-h:200}.scene-stats{--scene-h:286}.scene-why{--scene-h:105}.scene-testimonials{--scene-h:330}.scene-contact{--scene-h:78}.scene-blog{--scene-h:190}.scene-map{--scene-h:240}.ambient-rule{position:absolute;left:0;right:0;top:18%;height:1px;background:linear-gradient(90deg,transparent,hsla(var(--scene-h),90%,70%,.18),transparent);pointer-events:none;opacity:.6}.light-mode .scene:before{background:radial-gradient(circle at calc(50% + var(--scene-x)) calc(40% + var(--scene-y)),hsla(var(--scene-h),55%,48%,.07),transparent 28%),linear-gradient(90deg,transparent 0 49.8%,rgba(25,25,25,.08) 50%,transparent 50.2%),linear-gradient(rgba(25,25,25,.04) 1px,transparent 1px)!important;background-size:100% 100%,100% 100%,100% 120px!important}.light-mode .scene:after{background:radial-gradient(circle,hsla(var(--scene-h),55%,48%,.11),transparent 68%)!important}.light-mode .ambient-rule{background:linear-gradient(90deg,transparent,hsla(var(--scene-h),55%,38%,.2),transparent)}
+@media(max-width:700px){.scene:before{background-size:100% 100%,100% 100%,100% 86px!important}.ambient-rule{top:12%;opacity:.38}}
+</style>
 </head>
 <body>
   <div class="live-wallpaper" aria-hidden="true"></div>
@@ -942,6 +947,14 @@ body{font-family:'Albert Sans',sans-serif;background:var(--g-black);color:var(--
 
 })();
 
+</script>
+<script id="global-atmosphere-script">
+(function(){
+  const scenes=[...document.querySelectorAll('.scene,.trust,.section,.footer')];
+  const setPointer=e=>{const x=e.clientX/window.innerWidth-.5,y=e.clientY/window.innerHeight-.5;scenes.forEach((s,i)=>{s.style.setProperty('--scene-x',(x*(18+(i%3)*10)).toFixed(1)+'px');s.style.setProperty('--scene-y',(y*(14+(i%4)*8)).toFixed(1)+'px');});};
+  window.addEventListener('pointermove',setPointer,{passive:true});
+  const io=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('is-active');}),{threshold:.18});scenes.forEach((s,i)=>{s.style.setProperty('--scene-delay',i%6);io.observe(s);});
+})();
 </script>
 <script id="interactive-orb-script">
 (function(){
