@@ -1776,3 +1776,20 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   .hero > .fluid-simulation-stage { opacity: .58 !important; }
 }
 </style>
+
+<style id="stronger-smoke-color-density">
+/* Intensify the smoke color without changing its simulation size or motion. */
+.hero > .compact-fluid-canvas,
+.hero > .fluid-simulation-stage {
+  opacity: .86 !important;
+  filter: saturate(2.05) contrast(1.22) brightness(1.24) !important;
+  mix-blend-mode: screen !important;
+}
+@media(max-width:700px){
+  .hero > .compact-fluid-canvas,
+  .hero > .fluid-simulation-stage {
+    opacity: .72 !important;
+    filter: saturate(1.82) contrast(1.18) brightness(1.18) !important;
+  }
+}
+</style>
