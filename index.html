@@ -1656,3 +1656,36 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   }
 }
 </style>
+
+<style>
+/* Strong title contrast over full-screen owned-image background */
+.hero .mega-title .title-main,
+.hero .mega-title .title-accent {
+  color: #fffdf7 !important;
+  text-shadow:
+    0 3px 0 rgba(0,0,0,.82),
+    0 0 10px rgba(0,0,0,.88),
+    0 0 24px rgba(0,0,0,.56) !important;
+  -webkit-text-stroke: 1px rgba(8,10,16,.78) !important;
+  paint-order: stroke fill !important;
+}
+.hero .mega-title .title-accent {
+  -webkit-text-stroke: 1.4px rgba(255,255,255,.98) !important;
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,.92)) !important;
+}
+.hero .eyebrow,
+.hero .typewriter-line,
+.hero-copy > p {
+  text-shadow: 0 2px 8px rgba(0,0,0,.9), 0 0 3px rgba(0,0,0,.9) !important;
+}
+@media (max-width:700px){
+  .hero .mega-title .title-main,
+  .hero .mega-title .title-accent {
+    -webkit-text-stroke: .85px rgba(8,10,16,.82) !important;
+    text-shadow: 0 2px 7px rgba(0,0,0,.92), 0 0 14px rgba(0,0,0,.62) !important;
+  }
+  .hero .mega-title .title-accent {
+    -webkit-text-stroke: 1px rgba(255,255,255,.98) !important;
+  }
+}
+</style>
