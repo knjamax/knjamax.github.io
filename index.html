@@ -1327,3 +1327,20 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   .hero .editorial-orb { opacity: .78 !important; }
 }
 </style>
+
+<style id="remove-extra-circle-keep-bubble">
+/* Remove the added circular CSS orb; keep the original bubble atmosphere behind it. */
+.hero .editorial-orb {
+  display: none !important;
+}
+.hero > .reference-motion-video {
+  display: block !important;
+  z-index: 1 !important;
+}
+.hero::before {
+  z-index: 0 !important;
+}
+.hero > .compact-fluid-canvas {
+  z-index: 45 !important;
+}
+</style>
