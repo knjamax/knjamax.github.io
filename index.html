@@ -1708,3 +1708,23 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   }
 }
 </style>
+
+<style id="crisp-transparent-title-accent">
+/* Keep the outlined title fully transparent and sharp; remove haze/glow from its interior. */
+.hero .mega-title .title-accent,
+.hero .mega-title .title-accent.title-reveal {
+  color: transparent !important;
+  background: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  -webkit-text-stroke: 1.35px rgba(255,255,255,.96) !important;
+  text-shadow: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+@media(max-width:700px){
+  .hero .mega-title .title-accent,
+  .hero .mega-title .title-accent.title-reveal {
+    -webkit-text-stroke-width: 1px !important;
+  }
+}
+</style>
