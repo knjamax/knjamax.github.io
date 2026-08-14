@@ -1574,3 +1574,46 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   .hero .editorial-orb{display:block!important;width:108vw!important;height:94vw!important;top:55%!important}
 }
 </style>
+
+<style id="restore-animated-video-bubble">
+/* The requested bubble is the original animated motion/video layer. */
+.hero::before,
+.hero::after,
+.hero .editorial-orb {
+  display: none !important;
+}
+.hero > .reference-motion-video {
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 2 !important;
+  opacity: .74 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+  background: #08090d !important;
+  mix-blend-mode: normal !important;
+}
+.hero > .reference-motion-video video {
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  opacity: .9 !important;
+  mix-blend-mode: screen !important;
+  filter: saturate(1.12) contrast(1.04) brightness(.8) !important;
+}
+.hero > .reference-motion-video::after {
+  display: block !important;
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(180deg, rgba(5,7,14,.12), transparent 44%, rgba(5,7,14,.62)) !important;
+}
+@media(max-width:700px){
+  .hero > .reference-motion-video{opacity:.64!important}
+  .hero > .reference-motion-video video{opacity:.82!important}
+}
+</style>
