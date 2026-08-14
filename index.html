@@ -1517,3 +1517,33 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   .hero::after{width:76vw!important;height:76vw!important;top:55%!important}
 }
 </style>
+
+<style id="exact-original-bubble-definition">
+/* Exact bubble from the original hero implementation (825a426 / 12b0708). */
+.hero::after {
+  display: block !important;
+  position: absolute !important;
+  width: min(62vw, 720px) !important;
+  height: min(62vw, 720px) !important;
+  left: 50% !important;
+  right: auto !important;
+  top: 53% !important;
+  bottom: auto !important;
+  inset-block: auto !important;
+  transform: translate(-50%, -50%) !important;
+  border-radius: 50% !important;
+  filter: blur(2px) !important;
+  pointer-events: none !important;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255,245,201,.42) 0 2%, transparent 12%),
+    radial-gradient(circle at 58% 48%, rgba(231,173,61,.5), rgba(67,92,158,.34) 34%, rgba(8,14,31,.82) 68%, transparent 73%) !important;
+  box-shadow: 0 0 80px rgba(231,173,61,.12), inset -38px -28px 70px rgba(0,0,0,.4) !important;
+  mix-blend-mode: normal !important;
+  opacity: .92 !important;
+  z-index: 3 !important;
+  animation: none !important;
+}
+@media(max-width:700px){
+  .hero::after{width:92vw!important;height:92vw!important;top:51%!important}
+}
+</style>
