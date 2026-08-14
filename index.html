@@ -457,6 +457,25 @@ main{position:relative;isolation:isolate}.scene,.trust,.section,.footer{--scene-
 @media(max-width:700px){.hero>.aurora-stage{opacity:.78}.light-mode .hero>.aurora-stage{opacity:.45}}
 @media(prefers-reduced-motion:reduce){.hero>.aurora-stage{display:none}}
 </style>
+<style id="knjamasi-final-gloria-hero-tuning">
+/* Restore the Gloria orb as the primary visual; keep cursor effects restrained. */
+.hero>.reference-motion-video{z-index:1!important;opacity:.86!important;filter:saturate(.9) contrast(1.04) brightness(.78)!important;transform:none!important}
+.hero>.hero-visual{z-index:2!important;opacity:.42!important;pointer-events:none!important}
+.hero>.orb-stage{z-index:4!important;opacity:1!important;display:block!important;pointer-events:none!important}
+.hero>.orb-stage .orb-glow{opacity:.62!important;filter:blur(30px)!important}
+.hero>.orb-stage .orb{width:min(39vw,500px)!important;height:min(39vw,500px)!important;opacity:.94!important;filter:saturate(1.05) brightness(.92)!important}
+.hero>.fluid-simulation-stage{z-index:5!important;opacity:.10!important;mix-blend-mode:screen!important}
+.hero>.aurora-beam-stage{z-index:6!important;opacity:.10!important;mix-blend-mode:screen!important}
+.hero>.hero-grid,.hero>.hero-copy{z-index:10!important}
+.hero .mega-title{font-family:'Sora',sans-serif!important;align-items:center!important;gap:0!important;font-weight:800!important;font-size:clamp(4.6rem,12vw,11.8rem)!important;line-height:.76!important;letter-spacing:-.105em!important;text-align:center!important;text-transform:uppercase!important}
+.hero .mega-title .title-main{display:block!important;color:#f5f3ee!important;font-weight:800!important;text-shadow:0 10px 42px rgba(0,0,0,.3)!important}
+.hero .mega-title .title-accent{display:block!important;margin-top:10px!important;font-size:clamp(3.35rem,9.1vw,9.3rem)!important;line-height:.78!important;letter-spacing:-.09em!important;color:transparent!important;background:none!important;-webkit-text-stroke:1.35px rgba(245,243,238,.93)!important;text-shadow:0 0 18px rgba(245,243,238,.08)!important;font-weight:700!important}
+.hero .typewriter-line{margin-top:34px!important;font-family:'Albert Sans',sans-serif!important;letter-spacing:.05em!important;color:rgba(245,243,238,.62)!important}
+.hero .hero-copy>p{max-width:640px!important;color:rgba(245,243,238,.64)!important;font-size:.88rem!important}
+.light-mode .hero>.reference-motion-video{opacity:.32!important;filter:saturate(.65) brightness(1.12)!important}.light-mode .hero>.orb-stage{opacity:.72!important}.light-mode .hero>.fluid-simulation-stage,.light-mode .hero>.aurora-beam-stage{opacity:.05!important}.light-mode .hero .mega-title .title-main{color:#191919!important;text-shadow:none!important}.light-mode .hero .mega-title .title-accent{-webkit-text-stroke:1.25px #191919!important;text-shadow:none!important}.light-mode .hero .typewriter-line,.light-mode .hero .hero-copy>p{color:#69665f!important}
+@media(max-width:700px){.hero>.orb-stage .orb{width:72vw!important;height:72vw!important}.hero>.fluid-simulation-stage{opacity:.07!important}.hero>.aurora-beam-stage{opacity:.06!important}.hero .mega-title{font-size:clamp(3.7rem,18vw,6.2rem)!important}.hero .mega-title .title-accent{font-size:clamp(2.65rem,13vw,4.95rem)!important;-webkit-text-stroke:.8px rgba(245,243,238,.9)!important}}
+@media(prefers-reduced-motion:reduce){.hero>.fluid-simulation-stage,.hero>.aurora-beam-stage{display:none!important}}
+</style>
 </head>
 <body>
   <div class="live-wallpaper" aria-hidden="true"></div>
