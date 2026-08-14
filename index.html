@@ -1751,3 +1751,28 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   .hero > .compact-fluid-canvas { opacity: 1 !important; filter: saturate(1.48) contrast(1.1) brightness(1.12) !important; }
 }
 </style>
+
+<style id="smoke-above-title-layer">
+/* Aurora fluid floats above hero copy, while navigation and controls remain on top. */
+.hero > .compact-fluid-canvas,
+.hero > .fluid-simulation-stage {
+  z-index: 80 !important;
+  opacity: .72 !important;
+  mix-blend-mode: screen !important;
+  pointer-events: none !important;
+}
+.hero > .hero-grid > .hero-copy,
+.hero > .hero-grid > .hero-visual {
+  position: relative !important;
+  z-index: 60 !important;
+}
+.navbar,
+.navbar * {
+  position: relative;
+  z-index: 1000 !important;
+}
+@media(max-width:700px){
+  .hero > .compact-fluid-canvas,
+  .hero > .fluid-simulation-stage { opacity: .58 !important; }
+}
+</style>
