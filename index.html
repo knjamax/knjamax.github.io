@@ -1461,3 +1461,32 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   .hero::after{width:100vw!important;height:100vw!important;top:55%!important}
 }
 </style>
+
+<style id="final-owned-images-and-bubble-balance">
+/* Final balance: visible owned imagery behind the original bubble, without repeated spot artifacts. */
+.hero::before {
+  opacity: .24 !important;
+  inset: -4% !important;
+  background-image:
+    linear-gradient(180deg, rgba(7,8,14,.72), rgba(7,8,14,.34) 48%, rgba(7,8,14,.82)),
+    url("assets/knjamax/robot-services.png"),
+    url("assets/knjamax/solutions.png"),
+    url("assets/knjamax/robot-laptop.png") !important;
+  background-size: 100% 100%, 36% auto, 36% auto, 36% auto !important;
+  background-position: center, 5% 52%, 50% 46%, 95% 52% !important;
+  background-repeat: no-repeat !important;
+  filter: saturate(.72) contrast(.94) brightness(.58) blur(1.5px) !important;
+  transform: scale(1.02) !important;
+}
+.hero::after {
+  width: min(60vw, 710px) !important;
+  height: min(60vw, 710px) !important;
+  top: 51% !important;
+  opacity: .99 !important;
+  box-shadow: 0 0 135px rgba(226,176,67,.46), 0 0 76px rgba(76,117,212,.34), inset -48px -38px 78px rgba(0,0,0,.34), inset 24px 18px 42px rgba(255,240,174,.24) !important;
+}
+@media(max-width:700px){
+  .hero::before{opacity:.16!important;background-size:100% 100%, 56% auto, 56% auto, 56% auto!important;background-position:center, -8% 52%, 50% 46%, 108% 52%!important;filter:saturate(.68) brightness(.52) blur(2px)!important}
+  .hero::after{width:92vw!important;height:92vw!important;top:53%!important}
+}
+</style>
