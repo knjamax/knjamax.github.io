@@ -1423,3 +1423,41 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   mix-blend-mode: screen !important;
 }
 </style>
+
+<style id="restore-original-css-bubble">
+/* Exact original hero bubble: restore the initial irregular CSS atmosphere layer. */
+.hero > .reference-motion-video {
+  display: none !important;
+}
+.hero .editorial-orb {
+  display: none !important;
+}
+.hero::after {
+  display: block !important;
+  position: absolute !important;
+  inset: auto !important;
+  right: auto !important;
+  left: 50% !important;
+  top: 52% !important;
+  bottom: auto !important;
+  width: min(58vw, 690px) !important;
+  height: min(58vw, 690px) !important;
+  transform: translate(-50%,-50%) rotate(-3deg) !important;
+  border-radius: 47% 53% 51% 49% / 48% 47% 53% 52% !important;
+  background:
+    radial-gradient(circle at 27% 22%, rgba(255,255,231,.98) 0 2%, rgba(255,229,139,.72) 8%, transparent 23%),
+    radial-gradient(circle at 73% 27%, rgba(90,153,255,.9), transparent 32%),
+    radial-gradient(circle at 22% 72%, rgba(239,177,53,.78), transparent 31%),
+    radial-gradient(circle at 55% 54%, rgba(80,125,219,.92) 0 22%, rgba(53,78,145,.98) 53%, rgba(24,33,65,.99) 82%, rgba(10,14,28,.96) 100%) !important;
+  box-shadow: 0 0 120px rgba(226,176,67,.4), 0 0 64px rgba(76,117,212,.28), inset -48px -38px 78px rgba(0,0,0,.42), inset 24px 18px 42px rgba(255,240,174,.2) !important;
+  mix-blend-mode: screen !important;
+  border: 0 !important;
+  filter: blur(.15px) !important;
+  opacity: .96 !important;
+  z-index: 3 !important;
+  animation: gloriaOrbFloat 16s ease-in-out infinite alternate !important;
+}
+@media(max-width:700px){
+  .hero::after{width:100vw!important;height:100vw!important;top:55%!important}
+}
+</style>
