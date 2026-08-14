@@ -333,13 +333,14 @@
 
 
 /* ===== LIVE WALLPAPER ===== */
-.live-wallpaper{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:linear-gradient(135deg,rgba(7,26,50,.025),rgba(16,190,208,.035))}
+.live-wallpaper{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background-color:#041122;background-image:radial-gradient(circle at 12% 24%,rgba(16,190,208,.12) 0 1px,transparent 2px),radial-gradient(circle at 78% 68%,rgba(25,213,139,.1) 0 1px,transparent 2px),linear-gradient(rgba(103,216,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(103,216,255,.035) 1px,transparent 1px);background-size:180px 180px,240px 240px,64px 64px,64px 64px;animation:wallpaperGrid 28s linear infinite}
 .live-wallpaper:before,.live-wallpaper:after{content:"";position:absolute;border-radius:50%;filter:blur(45px);opacity:.22;will-change:transform}
 .live-wallpaper:before{width:42vw;height:42vw;left:-12vw;top:20vh;background:radial-gradient(circle,#10bed0,transparent 68%);animation:wallpaperFloatA 18s ease-in-out infinite alternate}
 .live-wallpaper:after{width:38vw;height:38vw;right:-10vw;top:55vh;background:radial-gradient(circle,#19d58b,transparent 68%);animation:wallpaperFloatB 23s ease-in-out infinite alternate}
 @keyframes wallpaperFloatA{0%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(12vw,-8vh,0) scale(1.2)}100%{transform:translate3d(4vw,14vh,0) scale(.92)}}
 @keyframes wallpaperFloatB{0%{transform:translate3d(0,0,0) scale(.9)}50%{transform:translate3d(-11vw,-10vh,0) scale(1.18)}100%{transform:translate3d(-3vw,7vh,0) scale(1)}}
-@media(prefers-reduced-motion:reduce){.live-wallpaper:before,.live-wallpaper:after{animation:none}}
+@keyframes wallpaperGrid{from{background-position:0 0,0 0,0 0,0 0}to{background-position:180px 180px,-240px 240px,64px 64px,64px 64px}}
+@media(prefers-reduced-motion:reduce){.live-wallpaper,.live-wallpaper:before,.live-wallpaper:after{animation:none}}
 
 </style>
 <style>
