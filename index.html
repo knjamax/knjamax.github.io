@@ -1627,14 +1627,15 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
   inset: 0 !important;
   z-index: 1 !important;
   pointer-events: none !important;
-  opacity: .28 !important;
+  opacity: .34 !important;
+  background-blend-mode: normal, screen, screen, screen !important;
   background-image:
     linear-gradient(180deg, rgba(5,7,14,.52), rgba(5,7,14,.18) 48%, rgba(5,7,14,.62)),
     url("assets/knjamax/robot-services.png"),
     url("assets/knjamax/solutions.png"),
     url("assets/knjamax/robot-laptop.png") !important;
-  background-size: 100% 100%, 38% auto, 38% auto, 38% auto !important;
-  background-position: center, 4% 50%, 50% 50%, 96% 50% !important;
+  background-size: 100% 100%, cover, cover, cover !important;
+  background-position: center, center, center, center !important;
   background-repeat: no-repeat !important;
   filter: saturate(.8) brightness(.62) contrast(.92) blur(1px) !important;
   transform: none !important;
@@ -1648,9 +1649,9 @@ document.querySelectorAll('.hero img').forEach((img)=>{img.draggable=false;img.s
 }
 @media(max-width:700px){
   .hero::before {
-    opacity: .2 !important;
-    background-size: 100% 100%, 64% auto, 64% auto, 64% auto !important;
-    background-position: center, -10% 50%, 50% 50%, 110% 50% !important;
+    opacity: .24 !important;
+    background-size: 100% 100%, cover, cover, cover !important;
+    background-position: center, center, center, center !important;
     filter: saturate(.72) brightness(.56) blur(1.5px) !important;
   }
 }
