@@ -1963,3 +1963,18 @@ body{touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important}
 .hero>.compact-fluid-canvas,.hero>.fluid-simulation-stage,.hero>.reference-motion-video,.hero>.reference-motion-video video{touch-action:none!important;pointer-events:none!important}
 @media(max-width:900px){.navbar .nav-links{touch-action:pan-y!important}.hero{min-height:auto!important;height:auto!important}.hero-grid{min-height:0!important}.hero-copy.reveal{min-height:0!important}}
 </style>
+<style id="final-chatbot-position">
+/* Keep the assistant clear of WhatsApp and back-to-top controls. */
+#chatbot-widget{position:relative!important;z-index:3000!important;pointer-events:none!important}
+#chatbot-widget .chat-toggle-btn,#chatbot-widget .chat-window{pointer-events:auto!important}
+#chatbot-widget .chat-toggle-btn{right:24px!important;bottom:92px!important;width:56px!important;height:56px!important}
+#chatbot-widget .chat-window{right:24px!important;bottom:160px!important;width:min(380px,calc(100vw - 48px))!important;height:min(540px,calc(100vh - 190px))!important;max-height:calc(100vh - 190px)!important}
+@media(max-width:600px){
+  #chatbot-widget .chat-toggle-btn{right:14px!important;bottom:78px!important;width:52px!important;height:52px!important}
+  #chatbot-widget .chat-window{right:12px!important;bottom:142px!important;width:calc(100vw - 24px)!important;max-width:none!important;height:min(560px,calc(100svh - 170px))!important;max-height:calc(100svh - 170px)!important;border-radius:16px!important}
+}
+@media(max-width:380px){
+  #chatbot-widget .chat-toggle-btn{right:12px!important;bottom:74px!important;width:50px!important;height:50px!important}
+  #chatbot-widget .chat-window{right:8px!important;bottom:134px!important;width:calc(100vw - 16px)!important}
+}
+</style>
