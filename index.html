@@ -1985,3 +1985,8 @@ body{touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important}
   #chatbot-widget .chat-window{right:8px!important;bottom:134px!important;width:calc(100vw - 16px)!important}
 }
 </style>
+<style id="chatbot-fixed-screen-position">
+/* Keep the chatbot attached to the viewport, not the document flow. */
+#chatbot-widget .chat-toggle-btn{position:fixed!important}
+#chatbot-widget .chat-window{position:fixed!important}
+</style>
